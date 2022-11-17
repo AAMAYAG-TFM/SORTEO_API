@@ -7,7 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 /**
  * Representa a los jugares en el sorteo, existe una relaci�n con la
  * organizaci�n
