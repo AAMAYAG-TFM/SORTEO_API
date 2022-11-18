@@ -1,4 +1,4 @@
-package co.edu.unir.tfm.sorteo.entity;
+package co.edu.unir.tfm.sorteo.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
