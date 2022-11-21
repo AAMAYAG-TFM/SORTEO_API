@@ -8,25 +8,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unir.tfm.sorteo.entities.Organizacion;
-import co.edu.unir.tfm.sorteo.services.OrganizacionService;
+import co.edu.unir.tfm.sorteo.entities.Jugador;
+import co.edu.unir.tfm.sorteo.entities.JugadorNumero;
+import co.edu.unir.tfm.sorteo.services.JugadorService;
 
 @RestController
-@RequestMapping("/api")
-public class OrganizacionController {
+@RequestMapping("/api/jugadores")
+public class JugadorController {
 
-	private OrganizacionService organizacionSrv;
+	private JugadorService jugadorSrv;
 
-	@GetMapping("/organizaciones")
+	@PostMapping("/")
 	@ResponseBody
-	public Organizacion getOrganizacion(@RequestParam String identificacion) {
-		return organizacionSrv.find(identificacion);
+	public JugadorNumero setJugador(@RequestBody Jugador jugador) {
+		return jugadorSrv.saveOrUpdate(jugador);
 	}
 
-	@PostMapping("/organizaciones")
+	@GetMapping("/")
 	@ResponseBody
-	public void setOrganizacion(@RequestBody Organizacion organizacion) {
-		organizacionSrv.saveOrUpdate(organizacion);
+	public Jugador getJugador(@RequestParam Integer identificador) {
+		return jugadorSrv.find(identificador);
 	}
 
 }
