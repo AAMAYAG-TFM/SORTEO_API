@@ -9,13 +9,15 @@ public class PremioServiceImpl implements PremioService {
 
 	@Override
 	public List<Premio> findAll() {
-		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Premio find(Integer ideOrganizacion, Integer idePremio) {
 		return null;
 	}
 
 	@Override
 	public void saveOrUpdate(Premio premio) {
-		// TODO Auto-generated method stub
 
 	}
 

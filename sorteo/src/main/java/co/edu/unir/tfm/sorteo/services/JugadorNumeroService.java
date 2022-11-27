@@ -9,5 +9,7 @@ public interface JugadorNumeroService {
 	public List<JugadorNumero> findAll();
 
 	public void saveOrUpdate(JugadorNumero jugadorNumero);
+	
+	public JugadorNumero find(String identificador);
 
 }
