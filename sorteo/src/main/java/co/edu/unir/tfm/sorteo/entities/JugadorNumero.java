@@ -1,16 +1,20 @@
 package co.edu.unir.tfm.sorteo.entities;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Asignaci�n de un jugador con el n�mero de sorteo, indica tambien si ha sido
@@ -26,7 +30,7 @@ public class JugadorNumero {
 	private int numSorteo;
 	private Jugador jugador;
 	private Premio premio;
-	private Timestamp fecRegistro;
+	private Date fecRegistro;
 
 	/**
 	 * N�mero asignado para el sorteo
@@ -34,6 +38,7 @@ public class JugadorNumero {
 	 * @return N�mero de sorteo
 	 */
 	@Column(name = "num_sorteo")
+	@Id
 	public int getNumSorteo() {
 		return numSorteo;
 	}
@@ -47,7 +52,8 @@ public class JugadorNumero {
 	 * 
 	 * @return Datos del Jugador en el sorteo
 	 */
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "num_identificacion")
 	public Jugador getJugador() {
 		return jugador;
@@ -62,8 +68,8 @@ public class JugadorNumero {
 	 * 
 	 * @return Datos del premio a ser sorteado
 	 */
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ide_premio")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ide_premio", nullable = true)
 	public Premio getPremio() {
 		return premio;
 	}
@@ -79,11 +85,11 @@ public class JugadorNumero {
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fec_registro", nullable = false)
-	public Timestamp getFecRegistro() {
+	public Date getFecRegistro() {
 		return fecRegistro;
 	}
 
-	public void setFecRegistro(Timestamp fecRegistro) {
+	public void setFecRegistro(Date fecRegistro) {
 		this.fecRegistro = fecRegistro;
 	}
 

@@ -9,7 +9,7 @@ public interface JugadorService {
 
 	public List<Jugador> findAll();
 
-	public Jugador find(Integer identificador);
+	public Jugador find(String identificador);
 
 	public JugadorNumero saveOrUpdate(Jugador jugador);
 

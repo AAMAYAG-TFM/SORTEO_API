@@ -10,6 +10,6 @@ public interface OrganizacionService {
 
 	public Organizacion find(String identificacion);
 
-	public void saveOrUpdate(Organizacion organizacion);
+	public Organizacion saveOrUpdate(Organizacion organizacion);
 
 }

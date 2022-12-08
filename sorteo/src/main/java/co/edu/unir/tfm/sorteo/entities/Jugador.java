@@ -4,9 +4,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Representa a los jugares en el sorteo, existe una relaci�n con la
@@ -23,6 +27,10 @@ public class Jugador {
 	private String numIdentificacion;
 	private String valNombre;
 	private Organizacion organizacion;
+	
+	private JugadorNumero numeroAsignado;
+
+ 
 
 	/**
 	 * N�mero de identificaci�n del jugador, el organizador define si es el n�mero
@@ -31,6 +39,7 @@ public class Jugador {
 	 * @return N�mero de identificaci�n
 	 */
 	@Column(name = "num_identificacion")
+	@Id
 	public String getNumIdentificacion() {
 		return numIdentificacion;
 	}
@@ -59,7 +68,7 @@ public class Jugador {
 	 * 
 	 * @return Datos de la organizaci�n
 	 */
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ide_organizacion")
 	public Organizacion getOrganizacion() {
 		return organizacion;
@@ -68,5 +77,18 @@ public class Jugador {
 	public void setOrganizacion(Organizacion organizacion) {
 		this.organizacion = organizacion;
 	}
+
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	public JugadorNumero getNumeroAsignado() {
+		return numeroAsignado;
+	}
+
+	public void setNumeroAsignado(JugadorNumero numeroAsignado) {
+		this.numeroAsignado = numeroAsignado;
+	}
+	
+	
 
 }

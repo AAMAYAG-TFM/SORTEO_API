@@ -4,6 +4,7 @@ import java.util.List;
 
 import co.edu.unir.tfm.sorteo.entities.JugadorNumero;
 
+
 public interface JugadorNumeroService {
 
 	public List<JugadorNumero> findAll();
