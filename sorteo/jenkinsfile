@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Source') {
-            steps {
-                git 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
-            }
-        }
+         stage ('Build') {
+    git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
+    withMaven {
+      sh "mvn clean verify"
+    } 
+  }
+    }
         
 
     }
