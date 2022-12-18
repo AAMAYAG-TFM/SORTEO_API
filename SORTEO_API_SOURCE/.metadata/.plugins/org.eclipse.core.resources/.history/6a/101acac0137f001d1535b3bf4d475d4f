@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+
+    stages {
+         stage ('Build') {
+    	 	git url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'	  
+  	      }
+	  	  steps {
+	      	sh 'mvn clean install'
+	      }
+    } 
+}
