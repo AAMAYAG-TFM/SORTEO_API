@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\user\eclipse-workspace-tfm\SORTEO_API\SORTEO_API_SOURCE\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3018145287.index
+2335855645.index
+2593069508.index
+2939353899.index
+3095693566.index
+293811645.index

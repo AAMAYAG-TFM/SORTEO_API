@@ -1,12 +1,29 @@
 pipeline {
-    agent any
-
+    agent any 
     stages {
-         stage ('Build') {
-    	 git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-    	 withMaven {
-      		sh "mvn clean verify"
-    	} 
-  	  }
-    } 
+    
+        stage('Clone') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Hello world!' 
+            }
+        }
+    }
 }
