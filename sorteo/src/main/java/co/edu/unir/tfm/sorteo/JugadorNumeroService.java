@@ -1,4 +1,4 @@
-package service;
+package co.edu.unir.tfm.sorteo;
 
 import java.util.List;
 
