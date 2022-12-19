@@ -18,7 +18,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                 sh 'docker build -t venus90210/sorteo_api:v1 ./sorteo/'
+                 sh 'docker build -t venus90210/sorteo_api:v1 .'
                   
             }
         }
