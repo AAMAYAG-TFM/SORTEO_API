@@ -4,7 +4,10 @@ pipeline {
         registry = "venus90210/sorteo_api"
         registryCredential = 'dockerhub'
     }
-  
+    
+    tools {
+    	maven 'maven-3.6.3' 
+  	}
   
     agent any 
     stages {
@@ -12,7 +15,7 @@ pipeline {
         stage('Source') {
             steps {
                
-                git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
+                sh 'mvn clean install'
             }
         }
         
