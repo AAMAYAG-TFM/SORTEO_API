@@ -1,16 +1,25 @@
 pipeline {
+    
+    environment {
+        registry = "venus90210/sorteo_api"
+        registryCredential = 'dockerhub'
+    }
+  
+  
     agent any 
     stages {
     
-        stage('Clone') {
+        stage('Source') {
             steps {
-                echo 'Hello world!' 
+               
+                git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
             }
         }
         
         stage('Build') {
             steps {
-                echo 'Hello world!' 
+                 sh 'docker build -t venus90210/sorteo_api:v1 ./sorteo/'
+                  
             }
         }
         
