@@ -7,16 +7,23 @@ pipeline {
     }
     
     environment {
-        registry = "venus90210/sorteo_api"
-        registryCredential = 'dockerhub'
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
     }
     
     stages {    
          
         stage('Build') {
           withMaven {
-     	      sh "mvn clean verify"
+     	      sh 'mvn clean package'
     		} 
+        }
+        stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("venus90210/sorteo_api:${TAG}")
+                }
+            }
         }
         
         stage('Test') {
