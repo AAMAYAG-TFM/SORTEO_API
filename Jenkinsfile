@@ -3,8 +3,7 @@ pipeline {
     agent any
     
     tools {
-        maven 'maven-3.8.6' 
-        jdk 'jdk11' 
+       maven 'maven-3.6.3' 
     }
     
     environment {
@@ -15,9 +14,9 @@ pipeline {
     stages {    
          
         stage('Build') {
-            steps {
-               sh 'mvn clean install'                  
-            }
+          withMaven {
+     	      sh "mvn clean verify"
+    		} 
         }
         
         stage('Test') {
