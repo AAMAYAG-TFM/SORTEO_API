@@ -11,14 +11,16 @@ pipeline {
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
     
-    stage('Source') {
+
+    
+    stages { 
+    
+        stage('Source') {
             steps {
                
                 git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
             }
-        }
-    
-    stages {    
+        }   
          
          stage ('Build') {
             steps {
