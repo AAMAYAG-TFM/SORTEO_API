@@ -8,8 +8,7 @@ pipeline {
     }
     
     environment {
-     	imagename = "venus90210/sorteo_api"
-    	registryCredential = 'kevalnagda'
+     	app = ''
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
