@@ -1,28 +1,44 @@
 pipeline {
-    
-    environment {
-        registry = "venus90210/sorteo_api"
-        registryCredential = 'dockerhub'
-    }
+
+    agent any
+ 
     
     tools {
-    	maven 'Maven-3.8.6' 
-  	}
-  
-    agent any 
-    stages {
+       maven 'Maven-3.8.6' 
+    }
+    
+    environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
+    
+
+    
+    stages { 
     
         stage('Source') {
             steps {
+
+                git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
+            }
+        }   
+         
+         stage ('Build') {
+            
+            steps {
+                echo 'Construyendo proyecto'
                
-                sh 'mvn clean install'
+                script {
+                   System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
+                }
+                
+                sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package -X'
             }
         }
         
-        stage('Build') {
+        stage('Docker Build') {
             steps {
-                 sh 'docker build -t venus90210/sorteo_api:v1 .'
-                  
+                echo 'Construyendo imagen'
             }
         }
         
