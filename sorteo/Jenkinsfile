@@ -8,6 +8,8 @@ pipeline {
     }
     
     environment {
+     	imagename = "venus90210/sorteo_api"
+    	registryCredential = 'kevalnagda'
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
@@ -35,7 +37,19 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Construyendo imagen'
-                sh 'docker build -t venus90210/sorteo_api:latest /sorteo/.'
+                app = docker.build("sorteo_api")
+                //sh 'docker build -t venus90210/sorteo_api:latest /sorteo/.'
+            }
+        }
+          
+        stage('Deploy') {
+            steps {
+                script{
+                    docker.withRegistry('https://165669622759.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                    }
+                }
             }
         }
         
