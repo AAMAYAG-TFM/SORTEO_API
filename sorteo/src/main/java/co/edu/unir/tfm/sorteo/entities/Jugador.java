@@ -14,7 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Representa a los jugares en el sorteo, existe una relaci�n con la
- * organizaci�n
+ * organizaci�n.
  * 
  * @author aamayag
  *
