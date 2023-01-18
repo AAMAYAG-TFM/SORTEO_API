@@ -3,7 +3,7 @@ pipeline {
     agent any
     
     tools {
-       maven 'maven-3.6.3' 
+       maven 'Maven-3.8.6' 
     }
     
     environment {
@@ -24,7 +24,7 @@ pipeline {
          
          stage ('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean install'
             }
         }
         

@@ -12,22 +12,22 @@ import co.edu.unir.tfm.sorteo.services.OrganizacionService;
 @Service
 public class OrganizacionServiceImpl implements OrganizacionService {
 
-	@Autowired
-	private OrganizacionRepositorio repositorio;
+  @Autowired
+  private OrganizacionRepositorio repositorio;
 
-	@Override
-	public List<Organizacion> findAll() {
-		return repositorio.findAll();
-	}
+  @Override
+  public List<Organizacion> findAll() {
+    return repositorio.findAll();
+  }
 
-	@Override
-	public Organizacion saveOrUpdate(Organizacion organizacion) {
-		return repositorio.saveAndFlush(organizacion);
-	}
+  @Override
+  public Organizacion saveOrUpdate(Organizacion organizacion) {
+    return repositorio.saveAndFlush(organizacion);
+  }
 
-	@Override
-	public Organizacion find(String identificacion) {
-		return repositorio.findById(identificacion).isPresent() ? repositorio.findById(identificacion).get() : null;
-	}
+  @Override
+  public Organizacion find(String identificacion) {
+    return repositorio.findById(identificacion).isPresent() ? repositorio.findById(identificacion).get() : null;
+  }
 
 }

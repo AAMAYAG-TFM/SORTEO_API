@@ -1,68 +1,72 @@
 package co.edu.unir.tfm.sorteo.services.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import co.edu.unir.tfm.sorteo.entities.Jugador;
 import co.edu.unir.tfm.sorteo.entities.JugadorNumero;
 import co.edu.unir.tfm.sorteo.repositorios.JugadorNumeroRepositorio;
 import co.edu.unir.tfm.sorteo.repositorios.JugadorRepositorio;
 import co.edu.unir.tfm.sorteo.repositorios.OrganizacionRepositorio;
 import co.edu.unir.tfm.sorteo.services.JugadorService;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+/**
+ * pureba.
+ * 
+ */
 @Service
 public class JugadorServiceImpl implements JugadorService {
 
-	@Autowired
-	private JugadorRepositorio repositorio;
+  @Autowired
+  private JugadorRepositorio repositorio;
 
-	@Autowired
-	private OrganizacionRepositorio repositorioOrganizacion;
+  @Autowired
+  private OrganizacionRepositorio repositorioOrganizacion;
 
-	@Autowired
-	private JugadorNumeroRepositorio repositorioNumeros;
+  @Autowired
+  private JugadorNumeroRepositorio repositorioNumeros;
 
-	@Override
-	public List<Jugador> findAll() {
-		return repositorio.findAll();
-	}
+  @Override
+  public List<Jugador> findAll() {
+    return repositorio.findAll();
+  }
 
-	@Override
-	public JugadorNumero saveOrUpdate(Jugador jugador) {
+  @Override
+  public JugadorNumero saveOrUpdate(Jugador jugador) {
 
-		/* Se actualiza o almacenan los datos del jugador */
-		repositorio.saveAndFlush(jugador);
+    /* Se actualiza o almacenan los datos del jugador */
+    repositorio.saveAndFlush(jugador);
 
-		/* Eliminamos asignaciones anteriores de números */
-		repositorioNumeros.deleteAsignacionesJugador(jugador.getNumIdentificacion());
+    /* Eliminamos asignaciones anteriores de números */
+    repositorioNumeros.deleteAsignacionesJugador(jugador.getNumIdentificacion());
 
-		JugadorNumero numero = new JugadorNumero();
-		numero.setJugador(jugador);
-		numero.setFecRegistro(new Date());
+    JugadorNumero numero = new JugadorNumero();
+    numero.setJugador(jugador);
+    numero.setFecRegistro(new Date());
 
-		Long cantidad = repositorioOrganizacion.getCantidadEmpleados(jugador.getOrganizacion().getIdeOrganizacion());
+    String ideOrganizacion = jugador.getOrganizacion().getIdeOrganizacion();
 
-		int numSorteo = (int) (Math.random() * cantidad);
+    Long cantidad = repositorioOrganizacion.getCantidadEmpleados(ideOrganizacion);
 
-		numero.setNumSorteo(numSorteo);
+    int numSorteo = (int) (Math.random() * cantidad);
 
-		JugadorNumero asignacion = repositorioNumeros
-				.getAsignacionNumero(jugador.getOrganizacion().getIdeOrganizacion(), numero.getNumSorteo());
+    numero.setNumSorteo(numSorteo);
+    JugadorNumero jugnum = null;
 
-		if (asignacion == null)
-			repositorioNumeros.saveAndFlush(numero);
+    jugnum = repositorioNumeros.getAsignacionNumero(ideOrganizacion, numSorteo);
 
-		return repositorioNumeros.getAsignacionNumero(jugador.getOrganizacion().getIdeOrganizacion(),
-				numero.getNumSorteo());
+    if (jugnum == null) {
+      repositorioNumeros.saveAndFlush(numero);
+    }
 
-	}
+    return repositorioNumeros.getAsignacionNumero(ideOrganizacion, numSorteo);
 
-	@Override
-	public Jugador find(String identificador) {
-		return repositorio.findById(identificador).isPresent() ? repositorio.findById(identificador).get() : null;
-	}
+  }
+
+  @Override
+  public Jugador find(String id) {
+    return repositorio.findById(id).isPresent() ? repositorio.findById(id).get() : null;
+  }
 
 }

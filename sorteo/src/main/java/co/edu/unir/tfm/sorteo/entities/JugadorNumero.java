@@ -27,70 +27,70 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "JUGADOR_NUMEROS")
 public class JugadorNumero {
 
-	private int numSorteo;
-	private Jugador jugador;
-	private Premio premio;
-	private Date fecRegistro;
+  private int numSorteo;
+  private Jugador jugador;
+  private Premio premio;
+  private Date fecRegistro;
 
-	/**
-	 * N�mero asignado para el sorteo
-	 * 
-	 * @return N�mero de sorteo
-	 */
-	@Column(name = "num_sorteo")
-	@Id
-	public int getNumSorteo() {
-		return numSorteo;
-	}
+  /**
+   * N�mero asignado para el sorteo
+   * 
+   * @return N�mero de sorteo
+   */
+  @Column(name = "num_sorteo")
+  @Id
+  public int getNumSorteo() {
+    return numSorteo;
+  }
 
-	public void setNumSorteo(int numSorteo) {
-		this.numSorteo = numSorteo;
-	}
+  public void setNumSorteo(int numSorteo) {
+    this.numSorteo = numSorteo;
+  }
 
-	/**
-	 * Datos del Jugador en el sorteo
-	 * 
-	 * @return Datos del Jugador en el sorteo
-	 */
-	@ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "num_identificacion")
-	public Jugador getJugador() {
-		return jugador;
-	}
+  /**
+   * Datos del Jugador en el sorteo
+   * 
+   * @return Datos del Jugador en el sorteo
+   */
+  @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JoinColumn(name = "num_identificacion")
+  public Jugador getJugador() {
+    return jugador;
+  }
 
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
+  public void setJugador(Jugador jugador) {
+    this.jugador = jugador;
+  }
 
-	/**
-	 * Datos del premio a ser sorteado
-	 * 
-	 * @return Datos del premio a ser sorteado
-	 */
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ide_premio", nullable = true)
-	public Premio getPremio() {
-		return premio;
-	}
+  /**
+   * Datos del premio a ser sorteado
+   * 
+   * @return Datos del premio a ser sorteado
+   */
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "ide_premio", nullable = true)
+  public Premio getPremio() {
+    return premio;
+  }
 
-	public void setPremio(Premio premio) {
-		this.premio = premio;
-	}
+  public void setPremio(Premio premio) {
+    this.premio = premio;
+  }
 
-	/**
-	 * Fecha y hora de registro
-	 * 
-	 * @return
-	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fec_registro", nullable = false)
-	public Date getFecRegistro() {
-		return fecRegistro;
-	}
+  /**
+   * Fecha y hora de registro
+   * 
+   * @return
+   */
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "fec_registro", nullable = false)
+  public Date getFecRegistro() {
+    return fecRegistro;
+  }
 
-	public void setFecRegistro(Date fecRegistro) {
-		this.fecRegistro = fecRegistro;
-	}
+  public void setFecRegistro(Date fecRegistro) {
+    this.fecRegistro = fecRegistro;
+  }
 
 }
