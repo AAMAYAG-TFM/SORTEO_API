@@ -11,12 +11,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class SorteoApplicationTests {
-	
+
   @DisplayName("Test MessageService.get()")
   @Test
   void testGet() {
-   assertEquals("Hello JUnit 5", MessageService.get());
+    assertEquals("Hello JUnit 5", MessageService.get());
   }
-
 
 }

@@ -74,8 +74,9 @@ public class Jugador {
   }
 
   /**
-   * 
-   * @return
+   * Retorna información del número asignado al jugador.
+   *
+   * @return Relación Jugador-número
    */
   @ManyToOne(fetch = FetchType.EAGER)
   @OnDelete(action = OnDeleteAction.CASCADE)

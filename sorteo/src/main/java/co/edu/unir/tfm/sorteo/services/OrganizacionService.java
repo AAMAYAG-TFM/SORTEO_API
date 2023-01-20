@@ -1,8 +1,8 @@
 package co.edu.unir.tfm.sorteo.services;
 
+import co.edu.unir.tfm.sorteo.entities.Organizacion;
 import java.util.List;
 
-import co.edu.unir.tfm.sorteo.entities.Organizacion;
 
 /**
  * Interfaz del servicio que administra la información de las organizaciones.
@@ -16,7 +16,6 @@ public interface OrganizacionService {
 
   public Organizacion find(String identificacion);
 
- @Deprecated
   public Organizacion saveOrUpdate(Organizacion organizacion);
 
 }

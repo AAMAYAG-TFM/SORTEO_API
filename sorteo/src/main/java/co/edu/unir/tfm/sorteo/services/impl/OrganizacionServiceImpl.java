@@ -1,6 +1,5 @@
 package co.edu.unir.tfm.sorteo.services.impl;
 
-
 import co.edu.unir.tfm.sorteo.entities.Organizacion;
 import co.edu.unir.tfm.sorteo.repositorios.OrganizacionRepositorio;
 import co.edu.unir.tfm.sorteo.services.OrganizacionService;
@@ -8,8 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
+/**
+ * Implementación del servicio de Organizacion que administra la información a
+ * registrar.
+ *
+ * @author aamayag
+ *
+ */
 @Service
 public class OrganizacionServiceImpl implements OrganizacionService {
 
@@ -22,7 +26,6 @@ public class OrganizacionServiceImpl implements OrganizacionService {
   }
 
   @Override
-  @Deprecated
   public Organizacion saveOrUpdate(Organizacion organizacion) {
     return repo.saveAndFlush(organizacion);
   }

@@ -1,7 +1,6 @@
 package co.edu.unir.tfm.sorteo.entities;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 /**
- * Asignaci�n de un jugador con el n�mero de sorteo, indica tambien si ha sido
- * ganador y de cual de los premios
- * 
+ * Asignación de un jugador con el número de sorteo, indica tambien si ha sido
+ * ganador y de cual de los premios.
+ *
  * @author aamayag
  *
  */
@@ -33,9 +31,9 @@ public class JugadorNumero {
   private Date fecRegistro;
 
   /**
-   * N�mero asignado para el sorteo
-   * 
-   * @return N�mero de sorteo
+   * Número asignado para el sorteo.
+   *
+   * @return Número de sorteo
    */
   @Column(name = "num_sorteo")
   @Id
@@ -48,8 +46,8 @@ public class JugadorNumero {
   }
 
   /**
-   * Datos del Jugador en el sorteo
-   * 
+   * Datos del Jugador en el sorteo.
+   *
    * @return Datos del Jugador en el sorteo
    */
   @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
@@ -64,8 +62,8 @@ public class JugadorNumero {
   }
 
   /**
-   * Datos del premio a ser sorteado
-   * 
+   * Datos del premio a ser sorteado.
+   *
    * @return Datos del premio a ser sorteado
    */
   @ManyToOne(fetch = FetchType.EAGER)
@@ -79,9 +77,9 @@ public class JugadorNumero {
   }
 
   /**
-   * Fecha y hora de registro
-   * 
-   * @return
+   * Fecha y hora de registro.
+   *
+   * @return fecha del registro
    */
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "fec_registro", nullable = false)

@@ -5,7 +5,7 @@ import java.util.List;
 
 
 /**
- * Servicio para PRemio 
+ * Servicio para PRemio.
  *
  */
 public interface PremioService {

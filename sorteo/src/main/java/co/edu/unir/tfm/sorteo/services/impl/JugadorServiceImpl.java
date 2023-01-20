@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * pureba.
+ * Implementación del servido que administra la información de los jugadores.
+ *
+ * @author aamayag
  * 
  */
 @Service

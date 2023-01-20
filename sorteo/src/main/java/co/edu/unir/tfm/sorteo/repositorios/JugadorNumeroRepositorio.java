@@ -1,16 +1,23 @@
 package co.edu.unir.tfm.sorteo.repositorios;
 
+import co.edu.unir.tfm.sorteo.entities.JugadorNumero;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.unir.tfm.sorteo.entities.JugadorNumero;
-
+/**
+ * Repositorio de información que relaciona el jugador con los diferentes
+ * números.
+ *
+ * @author aamayag
+ *
+ */
 public interface JugadorNumeroRepositorio extends JpaRepository<JugadorNumero, Integer> {
 
-  @Query("SELECT jn FROM JugadorNumero jn WHERE jn.jugador.organizacion.ideOrganizacion = :ideOrganizacion and jn.numSorteo = :numero")
+  @Query("SELECT jn FROM JugadorNumero jn WHERE jn.jugador.organizacion.ideOrganizacion = "
+      + ":ideOrganizacion and jn.numSorteo = :numero")
   public JugadorNumero getAsignacionNumero(@Param("ideOrganizacion") String ideOrganizacion,
       @Param("numero") int numero);
 

@@ -7,8 +7,8 @@ import javax.persistence.Table;
 
 /**
  * Hace referencia a la empresa o entidad a la que pertenecen las personas que
- * van a ser parte del sorteo
- * 
+ * van a ser parte del sorteo.
+ *
  * @author aamayag
  *
  */
@@ -28,9 +28,9 @@ public class Organizacion {
   }
 
   /**
-   * Identificador de la organizaci�n dada por la entidad que regula
-   * 
-   * @return Numero de identificaci�n de la entidad
+   * Identificador de la organización dada por la entidad que regula.
+   *
+   * @return Numero de identificación de la entidad
    */
   @Id
   @Column(name = "ide_organizacion")
@@ -43,8 +43,8 @@ public class Organizacion {
   }
 
   /**
-   * Nombre de la organizaci�n o entidad
-   * 
+   * Nombre de la organización o entidad.
+   *
    * @return Nombre de la organizacion
    */
   @Column(name = "val_razon_social", nullable = false)
@@ -59,7 +59,7 @@ public class Organizacion {
   /**
    * Hace referencia al numero de empleados que tiene la organización, con este
    * mismo valor vamosa definir el tope de número a entregar.
-   * 
+   *
    * @return Número de empleados.
    */
   @Column(name = "num_empleados", nullable = false)

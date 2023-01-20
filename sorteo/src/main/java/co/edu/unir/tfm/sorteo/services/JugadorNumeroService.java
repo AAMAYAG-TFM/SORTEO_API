@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * Interface del servicion para la persistencia del Numero asignado a cada
- * jugador
- * 
+ * jugador.
+ *
  * @author aamayag
  *
  */
