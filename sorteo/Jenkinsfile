@@ -5,54 +5,80 @@ pipeline {
     
     tools {
        maven 'Maven-3.8.6' 
+   
     }
     
-    environment {
-     	app = ''
-        DATE = new Date().format('yy.M')
-        TAG = "${DATE}.${BUILD_NUMBER}"
+    environment { 
+        PROJECT_ROOT ="sorteo" 
+        nombre_imagen = "sorteo_api"
+        ecr_url = "https://165669622759.dkr.ecr.us-east-2.amazonaws.com"
+        ecr_credentials = "ecr:us-east-2:aws-credentials"
+        app = ''
     }
        
     stages { 
-            stage('Source') {
+        stage('Source') {
             steps {
                 git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
             }
         }   
-         
-         stage ('Build') {
-            
+        
+        stage('Scan'){ 
+	        environment{
+	            //Definido en tools configurations
+	           scannerHome = tool 'SonarQube'; 
+	        }
+            steps{ 
+               withSonarQubeEnv('SONARQUBE') {
+                   sh "${scannerHome}/bin/sonar-scanner \
+                   -Dsonar.projectKey=sorteo:Test \
+                   -Dsonar.projectName=sorteo \
+                   -Dsonar.projectVersion=0.${BUILD_NUMBER} \
+                   -Dsonar.sources=${PROJECT_ROOT}/src/main \
+                   -Dsonar.language=java \
+                   -Dsonar.java.binaries=./${PROJECT_ROOT}/target/classes \
+                   -Dsonar.java.test.binaries=${PROJECT_ROOT}/src/test/java \
+                   -Dsonar.junit.reportPaths=./${PROJECT_ROOT}/target/surefire-reports \
+                  "
+            }
+          }    
+        }
+        
+        
+        
+        stage ('Build') {
             steps {
-                echo 'Construyendo proyecto'
                 sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package'
             }
         }
         
-        stage('Docker Build') {
-            steps {
-                echo 'Construyendo imagen'
-                app = docker.build("sorteo_api")
-                //sh 'docker build -t venus90210/sorteo_api:latest /sorteo/.'
+        
+        stage('Building image') {
+          steps{
+            script {
+              app = docker.build nombre_imagen
             }
+          }
         }
-          
-        stage('Deploy') {
-            steps {
-                script{
-                    docker.withRegistry('https://165669622759.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+   
+
+        stage('Deploy Master Image') {
+            steps{
+                script {
+                    docker.withRegistry(ecr_url, ecr_credentials) {     
+                        app.push("$BUILD_NUMBER")
+                        app.push('latest')
                     }
                 }
             }
         }
+ 
         
         stage('Test') {
             steps {
                 echo 'Hello world!' 
             }
         }
-        
- 
-    }
+    }  
 }
+ 

@@ -5,9 +5,9 @@ import java.util.List;
 import co.edu.unir.tfm.sorteo.entities.Organizacion;
 
 /**
- * preuba pendiente 
- * 
- * @author user
+ * Interfaz del servicio que administra la información de las organizaciones.
+ *
+ * @author aamayag
  *
  */
 public interface OrganizacionService {
@@ -16,6 +16,7 @@ public interface OrganizacionService {
 
   public Organizacion find(String identificacion);
 
+ @Deprecated
   public Organizacion saveOrUpdate(Organizacion organizacion);
 
 }
