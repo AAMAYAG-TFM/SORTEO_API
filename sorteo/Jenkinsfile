@@ -74,9 +74,9 @@ pipeline {
         }
  
         
-        stage('Test') {
+       stage('Despliegue'){
             steps {
-                echo 'Hello world!' 
+                 sh 'kubectl apply -f deployment.yml'
             }
         }
     }  

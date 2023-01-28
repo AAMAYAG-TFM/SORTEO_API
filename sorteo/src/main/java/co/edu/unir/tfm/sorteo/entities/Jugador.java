@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 /**
- * Representa a los jugares en el sorteo, existe una relaci�n con la
+ * Representa a los jugares en el sorteo, existe una relación con la
  * organización.
  *
  * @author aamayag
