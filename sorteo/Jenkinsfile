@@ -72,13 +72,6 @@ pipeline {
                 }
             }
         }
- 
-        
-       stage('Despliegue'){
-            steps {
-                 sh 'kubectl apply -f deployment.yml'
-            }
-        }
     }  
 }
  
