@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: underwater-app-jenkins 
+  labels:
+    app: sorteo_api
+spec:
+  selector:
+    matchLabels:
+        app: sorteo_api
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: sorteo_api
+    spec:
+      containers:
+        - name: sorteo_api_cont
+          image: 165669622759.dkr.ecr.us-east-2.amazonaws.com/sorteo_api:latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always

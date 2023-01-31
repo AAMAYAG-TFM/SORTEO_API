@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Representa los premios que tiene para sortear cada organizacion
- * 
+ * Representa los premios que tiene para sortear cada organizacion.
+ *
  * @author aamayag
  *
  */
@@ -19,68 +19,69 @@ import javax.persistence.Table;
 @Table(name = "PREMIOS")
 public class Premio {
 
-	private int idePremio;
-	private String valDescripcion;
-	private Organizacion organizacion;
-	private boolean valActivo;
+  private int idePremio;
+  private String valDescripcion;
+  private Organizacion organizacion;
+  private boolean valActivo;
 
-	/**
-	 * Identificador del Premio, n�mero generado automaticamente.
-	 * 
-	 * @return Identificador del premio
-	 */
-	@Id
-	@Column(name = "ide_premio")
-	public int getIdePremio() {
-		return idePremio;
-	}
+  /**
+   * Identificador del Premio, n�mero generado automaticamente.
+   *
+   * @return Identificador del premio
+   */
+  @Id
+  @Column(name = "ide_premio")
+  public int getIdePremio() {
+    return idePremio;
+  }
 
-	public void setIdePremio(int idePremio) {
-		this.idePremio = idePremio;
-	}
+  public void setIdePremio(int idePremio) {
+    this.idePremio = idePremio;
+  }
 
-	/**
-	 * Descripci�n del Premio a entregar.
-	 * 
-	 * @return Descripci�n del premio
-	 */
-	@Column(name = "val_descripcion")
-	public String getValDescripcion() {
-		return valDescripcion;
-	}
+  /**
+   * Descripci�n del Premio a entregar.
+   *
+   * @return Descripci�n del premio
+   */
+  @Column(name = "val_descripcion")
+  public String getValDescripcion() {
+    return valDescripcion;
+  }
 
-	public void setValDescripcion(String valDescripcion) {
-		this.valDescripcion = valDescripcion;
-	}
+  public void setValDescripcion(String valDescripcion) {
+    this.valDescripcion = valDescripcion;
+  }
 
-	/**
-	 * Datos de la Organizaci�n
-	 * 
-	 * @return Datos de la organizaci�n
-	 */
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ide_organizacion")
-	public Organizacion getOrganizacion() {
-		return organizacion;
-	}
+  /**
+   * Datos de la Organización.
+   *
+   * @return Datos de la organización
+   */
+  @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(name = "ide_organizacion")
+  public Organizacion getOrganizacion() {
+    return organizacion;
+  }
 
-	public void setOrganizacion(Organizacion organizacion) {
-		this.organizacion = organizacion;
-	}
+  public void setOrganizacion(Organizacion organizacion) {
+    this.organizacion = organizacion;
+  }
 
-	/**
-	 * Indica si el regalo est� activo, en caso de registrarse y desistir de la
-	 * entrega
-	 * 
-	 * @return est� activo el regalo
-	 */
-	@Column(name = "val_activo")
-	public boolean isValActivo() {
-		return valActivo;
-	}
+  /**
+   * Indica si el premio está activo para el sorteo.
+   *
+   * @return true: en caso de estar activo y poderse usar en el sorteo y false: en
+   *         caso de no estar habilitado para sortearse.
+   *
+   */
+  @Column(name = "val_activo")
+  public boolean isValActivo() {
+    return valActivo;
+  }
 
-	public void setValActivo(boolean valActivo) {
-		this.valActivo = valActivo;
-	}
+  public void setValActivo(boolean valActivo) {
+    this.valActivo = valActivo;
+  }
 
 }
