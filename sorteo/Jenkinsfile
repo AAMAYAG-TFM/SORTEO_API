@@ -1,11 +1,9 @@
 pipeline {
 
     agent any
- 
     
     tools {
        maven 'Maven-3.8.6' 
-   
     }
     
     environment { 
@@ -17,13 +15,13 @@ pipeline {
     }
        
     stages { 
-        stage('Source') {
+        stage('Fuente') {
             steps {
                 git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
             }
         }   
         
-        stage('Scan'){ 
+        stage('Scaneando Código'){ 
 	        environment{
 	            //Definido en tools configurations
 	           scannerHome = tool 'SonarQube'; 
@@ -44,25 +42,21 @@ pipeline {
           }    
         }
         
-        
-        
-        stage ('Build') {
+        stage ('Construyendo APIServicios') {
             steps {
                 sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package'
             }
         }
         
-        
-        stage('Building image') {
+        stage('Construyendo Imagen') {
           steps{
             script {
               app = docker.build nombre_imagen
             }
           }
         }
-   
 
-        stage('Deploy Master Image') {
+        stage('Registrando Imagen') {
             steps{
                 script {
                     docker.withRegistry(ecr_url, ecr_credentials) {     

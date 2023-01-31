@@ -1,0 +1,77 @@
+pipeline {
+
+    agent any
+ 
+    
+    tools {
+       maven 'Maven-3.8.6' 
+   
+    }
+    
+    environment { 
+        PROJECT_ROOT ="sorteo" 
+        nombre_imagen = "sorteo_api"
+        ecr_url = "https://165669622759.dkr.ecr.us-east-2.amazonaws.com"
+        ecr_credentials = "ecr:us-east-2:aws-credentials"
+        app = ''
+    }
+       
+    stages { 
+        stage('Fuente') {
+            steps {
+                git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
+            }
+        }   
+        
+        stage('Scaneando Código'){ 
+	        environment{
+	            //Definido en tools configurations
+	           scannerHome = tool 'SonarQube'; 
+	        }
+            steps{ 
+               withSonarQubeEnv('SONARQUBE') {
+                   sh "${scannerHome}/bin/sonar-scanner \
+                   -Dsonar.projectKey=sorteo:Test \
+                   -Dsonar.projectName=sorteo \
+                   -Dsonar.projectVersion=0.${BUILD_NUMBER} \
+                   -Dsonar.sources=${PROJECT_ROOT}/src/main \
+                   -Dsonar.language=java \
+                   -Dsonar.java.binaries=./${PROJECT_ROOT}/target/classes \
+                   -Dsonar.java.test.binaries=${PROJECT_ROOT}/src/test/java \
+                   -Dsonar.junit.reportPaths=./${PROJECT_ROOT}/target/surefire-reports \
+                  "
+            }
+          }    
+        }
+        
+        
+        
+        stage ('Construyendo APIServicios') {
+            steps {
+                sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package'
+            }
+        }
+        
+        
+        stage('Construyendo Imagen') {
+          steps{
+            script {
+              app = docker.build nombre_imagen
+            }
+          }
+        }
+   
+
+        stage('Registrando Imagen') {
+            steps{
+                script {
+                    docker.withRegistry(ecr_url, ecr_credentials) {     
+                        app.push("$BUILD_NUMBER")
+                        app.push('latest')
+                    }
+                }
+            }
+        }
+    }  
+}
+ 
