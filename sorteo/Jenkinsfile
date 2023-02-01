@@ -15,13 +15,13 @@ pipeline {
     }
        
     stages { 
-        stage('Fuente') {
+        stage('Descargando fuentes') {
             steps {
                 git branch: 'develop', url: 'https://github.com/AAMAYAG-TFM/SORTEO_API.git'
             }
         }   
         
-        stage('Scaneando Código'){ 
+        stage('Scaneando Código - SonarQube'){ 
 	        environment{
 	            //Definido en tools configurations
 	           scannerHome = tool 'SonarQube'; 
@@ -42,13 +42,13 @@ pipeline {
           }    
         }
         
-        stage ('Construyendo APIServicios') {
+        stage ('Construyendo APIServicios - Pruebas Unitarias') {
             steps {
                 sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package'
             }
         }
         
-        stage('Construyendo Imagen') {
+        stage('Construyendo Imagen - Docker') {
           steps{
             script {
               app = docker.build nombre_imagen
@@ -56,7 +56,7 @@ pipeline {
           }
         }
 
-        stage('Registrando Imagen') {
+        stage('Registrando Imagen - ECR') {
             steps{
                 script {
                     docker.withRegistry(ecr_url, ecr_credentials) {     
