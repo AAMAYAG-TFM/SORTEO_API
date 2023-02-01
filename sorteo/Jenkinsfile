@@ -42,6 +42,7 @@ pipeline {
           }    
         }
         
+        
         stage ('Construyendo APIServicios - Pruebas Unitarias') {
             steps {
                 sh 'mvn -Dhttps.protocols=TLSv1.2 -f /var/lib/jenkins/workspace/sorteo/sorteo/pom.xml clean package'
