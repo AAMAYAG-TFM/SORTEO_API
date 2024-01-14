@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller del servicio para administración de la información asociada al
- * registro de personas que van a representar a los jugares
+ * registro de personas que van a representar a los jugadores
  *
  * @author aamayag
  *
