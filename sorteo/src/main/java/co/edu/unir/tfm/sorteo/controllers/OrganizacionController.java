@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 /**
- * prasjf.
+ * Controller del servicio para administración de la información asociada a la
+ * asignación a la organización que organiza el sorteo.
+ *
+ * @author aamayag
  *
  */
 @RestController

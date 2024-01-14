@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
- * provas.
+ * Controller del servicio para administración de la información asociada al
+ * registro de personas que van a representar a los jugares
+ *
+ * @author aamayag
  *
  */
 @RestController
